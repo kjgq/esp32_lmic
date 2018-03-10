@@ -7,17 +7,17 @@
 
 #include "lmic.h"
 
-u1_t NWKSKEY[16] = { 0x33, 0xDA, 0xEF, 0x09, 0x56, 0xEB, 0x8E, 0xA6, 0xB3, 0x8F, 0xDC, 0x72, 0xB1, 0xEE, 0xE6, 0x69 };
-u1_t APPSKEY[16] = { 0x7E, 0x34, 0x7E, 0x65, 0x93, 0x26, 0x90, 0x79, 0x5B, 0x46, 0xBC, 0x7E, 0xEA, 0x16, 0x88, 0x83 };
-u4_t DEVADDR = 0x260115DE ;
+u1_t NWKSKEY[16] = { 0x4E, 0xAB, 0x02, 0xFA, 0xB6, 0x9B, 0x86, 0x40, 0x55, 0xFD, 0x0D, 0x64, 0x91, 0x5C, 0xBE, 0x68 };
+u1_t APPSKEY[16] = { 0xA2, 0x69, 0x11, 0xE2, 0xDB, 0x76, 0xC6, 0xC3, 0xFD, 0xB6, 0x42, 0x6B, 0xD5, 0x65, 0xEE, 0xDC };
+u4_t DEVADDR = 0x26011B3C;
 
 void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
-static uint8_t mydata[] = "Uela!";
+unsigned char str1[] = "KERR";
 
-const unsigned TX_INTERVAL = 30;
+const unsigned TX_INTERVAL = 10;
 
 void onEvent (ev_t ev) {
     printf("%d", os_getTime());
@@ -64,7 +64,7 @@ void onEvent (ev_t ev) {
                 printf("OP_TXRXPEND, not sending");
             } else {
                 // Prepare upstream data transmission at the next possible time.
-                LMIC_setTxData2(1, mydata, sizeof(mydata)-1, 0);
+                LMIC_setTxData2(1, str1, sizeof(str1)-1, 0);
                 printf("Packet queued");
             }
             break;
@@ -101,7 +101,7 @@ void os_runloop(void) {
       printf("OP_TXRXPEND, not sending");
   } else {
       // Prepare upstream data transmission at the next possible time.
-      LMIC_setTxData2(1, mydata, sizeof(mydata)-1, 0);
+      LMIC_setTxData2(1, str1, sizeof(str1)-1, 0);
       printf("Packet queued");
   }
 
